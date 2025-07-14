@@ -1,0 +1,111 @@
+<!--Arrays and Objects
+Working with Arrays and Objects
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Arrays and Objects</title>
+</head>
+<body>
+    <h1>Arrays and Objects</h1>
+    <button onclick="arrayExamples()">Array Examples</button>
+    <button onclick="objectExamples()">Object Examples</button>
+    <div id="array-results"></div>
+    <div id="object-results"></div>
+    
+    <script>
+        function arrayExamples() {
+            let fruits = ["apple", "banana", "orange"];
+            let numbers = [1, 2, 3, 4, 5];
+            let output = "";
+            
+            // Array methods
+            output += "Original fruits: " + fruits.join(", ") + "<br>";
+            
+            // Add elements
+            fruits.push("grape");
+            output += "After push: " + fruits.join(", ") + "<br>";
+            
+            // Remove elements
+            let removedFruit = fruits.pop();
+            output += "Removed: " + removedFruit + "<br>";
+            output += "After pop: " + fruits.join(", ") + "<br>";
+            
+            // Array iteration
+            output += "Fruits with forEach:<br>";
+            fruits.forEach(function(fruit, index) {
+                output += `${index}: ${fruit}<br>`;
+            });
+            
+            // Array methods with numbers
+            let doubled = numbers.map(num => num * 2);
+            output += "Doubled: " + doubled.join(", ") + "<br>";
+            
+            let evens = numbers.filter(num => num % 2 === 0);
+            output += "Even numbers: " + evens.join(", ") + "<br>";
+            
+            let sum = numbers.reduce((total, num) => total + num, 0);
+            output += "Sum: " + sum + "<br>";
+            
+            document.getElementById("array-results").innerHTML = output;
+        }
+        
+        function objectExamples() {
+            // Object creation and manipulation
+            let student = {
+                name: "John",
+                age: 20,
+                grades: [85, 90, 78],
+                isActive: true
+            };
+            
+            let output = "";
+            
+            // Accessing properties
+            output += "Name: " + student.name + "<br>";
+            output += "Age: " + student["age"] + "<br>";
+            
+            // Adding properties
+            student.email = "john@example.com";
+            output += "Email: " + student.email + "<br>";
+            
+            // Object methods
+            student.getAverage = function() {
+                let sum = this.grades.reduce((total, grade) => total + grade, 0);
+                return sum / this.grades.length;
+            };
+            
+            output += "Average grade: " + student.getAverage() + "<br>";
+            
+            // Object iteration
+            output += "All properties:<br>";
+            for (let key in student) {
+                if (typeof student[key] !== "function") {
+                    output += `${key}: ${student[key]}<br>`;
+                }
+            }
+            
+            // Object destructuring
+            let {name, age, grades} = student;
+            output += "Destructured - Name: " + name + ", Age: " + age + "<br>";
+            
+            document.getElementById("object-results").innerHTML = output;
+        }
+    </script>
+</body>
+</html>
+<!--Code Explanation: 
+
+Array methods: push(), pop(), forEach(), map(), filter(), reduce()
+
+Object properties: Access with dot notation or bracket notation
+
+Object methods: Functions stored as object properties
+
+this keyword: Refers to the current object context
+
+for...in loop: Iterates over object properties
+
+Destructuring: Extracts values from arrays and objects into variables
+
+Phase 4: Intermediate JavaScript -->

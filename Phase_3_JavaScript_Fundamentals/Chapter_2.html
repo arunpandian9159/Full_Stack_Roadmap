@@ -1,0 +1,107 @@
+<!--Functions and Control Flow
+JavaScript Functions and Conditionals-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Functions and Control Flow</title>
+</head>
+<body>
+    <h1>Functions and Control Flow</h1>
+    <button onclick="runExamples()">Run Examples</button>
+    <div id="results"></div>
+    
+    <script>
+        // Function Declaration
+        function greetUser(name, age) {
+            return `Hello, ${name}! You are ${age} years old.`;
+        }
+        
+        // Function Expression
+        const calculateArea = function(length, width) {
+            return length * width;
+        };
+        
+        // Arrow Function
+        const multiply = (a, b) => a * b;
+        
+        // Conditional Statements
+        function checkGrade(score) {
+            if (score >= 90) {
+                return "A";
+            } else if (score >= 80) {
+                return "B";
+            } else if (score >= 70) {
+                return "C";
+            } else if (score >= 60) {
+                return "D";
+            } else {
+                return "F";
+            }
+        }
+        
+        // Switch Statement
+        function getDayName(dayNumber) {
+            switch (dayNumber) {
+                case 1:
+                    return "Monday";
+                case 2:
+                    return "Tuesday";
+                case 3:
+                    return "Wednesday";
+                case 4:
+                    return "Thursday";
+                case 5:
+                    return "Friday";
+                case 6:
+                    return "Saturday";
+                case 7:
+                    return "Sunday";
+                default:
+                    return "Invalid day";
+            }
+        }
+        
+        // Loops
+        function generateNumberList(max) {
+            let numbers = [];
+            
+            // For loop
+            for (let i = 1; i <= max; i++) {
+                numbers.push(i);
+            }
+            
+            return numbers;
+        }
+        
+        function runExamples() {
+            let output = "";
+            
+            // Test functions
+            output += greetUser("Alice", 25) + "<br>";
+            output += "Area: " + calculateArea(5, 10) + "<br>";
+            output += "Multiply: " + multiply(4, 7) + "<br>";
+            output += "Grade: " + checkGrade(85) + "<br>";
+            output += "Day: " + getDayName(3) + "<br>";
+            output += "Numbers: " + generateNumberList(5).join(", ") + "<br>";
+            
+            document.getElementById("results").innerHTML = output;
+        }
+    </script>
+</body>
+</html>
+<!--Code Explanation:
+
+Function declaration: function name(){} creates a named function
+
+Function expression: Assigns a function to a variable
+
+Arrow functions: => provides shorter syntax for functions
+
+if/else statements: Execute different code based on conditions
+
+switch statements: Choose between multiple options
+
+for loops: Repeat code a specific number of times
+
+Parameters and return values: Functions can accept input and return output-->

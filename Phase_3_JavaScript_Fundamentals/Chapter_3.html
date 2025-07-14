@@ -33,10 +33,9 @@ Working with Arrays and Objects
             
             // Array iteration
             output += "Fruits with forEach:<br>";
-            fruits.forEach(function(fruit, index) {
-                output += `${index}: ${fruit}<br>`;
-            });
-            
+            fruits.forEach(function(fruit,index){
+                output += `${index + 1}: ${fruit}<br>`;
+            })
             // Array methods with numbers
             let doubled = numbers.map(num => num * 2);
             output += "Doubled: " + doubled.join(", ") + "<br>";
@@ -106,6 +105,4 @@ this keyword: Refers to the current object context
 
 for...in loop: Iterates over object properties
 
-Destructuring: Extracts values from arrays and objects into variables
-
-Phase 4: Intermediate JavaScript -->
+Destructuring: Extracts values from arrays and objects into variables -->

@@ -1,0 +1,42 @@
+<!--CSS Grid and Responsive Design
+CSS Grid Layout-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSS Grid</title>
+    <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            grid-template-rows: 100px 200px 100px;
+            gap: 10px;
+            height: 400px;
+        }
+        
+        .grid-item {
+            background-color: lightblue;
+            padding: 20px;
+            border: 1px solid #333;
+        }
+        
+        .header {
+            grid-column: 1 / -1;
+            background-color: lightgreen;
+        }
+        
+        .sidebar {
+            grid-row: 2 / 4;
+            background-color: lightcoral;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-container">
+        <div class="grid-item header">Header</div>
+        <div class="grid-item sidebar">Sidebar</div>
+        <div class="grid-item">Main Content</div>
+        <div class="grid-item">Content 2</div>
+        <div class="grid-item">Footer</div>
+    </div>
+</body>
+</html>

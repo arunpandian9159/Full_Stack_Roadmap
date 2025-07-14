@@ -1,0 +1,66 @@
+<!-- Flexbox Layout
+Modern Layout with Flexbox-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flexbox Layout</title>
+    <style>
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 200px;
+            background-color: #f0f0f0;
+            border: 2px solid #333;
+        }
+        
+        .flex-item {
+            background-color: lightblue;
+            padding: 20px;
+            margin: 10px;
+            border: 1px solid #333;
+        }
+        
+        .flex-column {
+            display: flex;
+            flex-direction: column;
+            height: 300px;
+        }
+        
+        .flex-grow {
+            flex-grow: 1;
+            background-color: lightgreen;
+        }
+        
+        .flex-shrink {
+            flex-shrink: 2;
+            background-color: lightcoral;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex-container">
+        <div class="flex-item">Item 1</div>
+        <div class="flex-item">Item 2</div>
+        <div class="flex-item">Item 3</div>
+    </div>
+    
+    <div class="flex-column">
+        <div class="flex-item flex-grow">Growing Item</div>
+        <div class="flex-item flex-shrink">Shrinking Item</div>
+    </div>
+</body>
+</html>
+<!--Code Explanation:
+
+display: flex: Creates a flex container
+
+justify-content: Controls horizontal alignment of items
+
+align-items: Controls vertical alignment of items
+
+flex-direction: Changes the main axis direction
+
+flex-grow: Allows items to grow to fill available space
+
+flex-shrink: Allows items to shrink when space is limited -->

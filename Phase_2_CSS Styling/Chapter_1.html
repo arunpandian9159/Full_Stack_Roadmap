@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSS Basics</title>
+    <style>
+        /* Element selector - targets all h1 elements */
+        h1 {
+            color: blue;
+            font-size: 24px;
+            text-align: center;
+        }
+        
+        /* Class selector - targets elements with class="intro" */
+        .intro {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        
+        /* ID selector - targets element with id="main-title" */
+        #main-title {
+            color: red;
+            font-weight: bold;
+        }
+        
+        /* Multiple selectors */
+        h2, h3 {
+            color: green;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="main-title">Welcome to CSS</h1>
+    <p class="intro">This is an introduction paragraph with special styling.</p>
+    <h2>Section Header</h2>
+    <p>Regular paragraph text.</p>
+</body>
+</html>
+<!--Code Explanation:
+
+Element selector (h1): Targets all elements of a specific type
+
+Class selector (.intro): Targets elements with a specific class attribute
+
+ID selector (#main-title): Targets a single element with a specific ID
+
+Properties and values: color: blue sets the text color to blue
+
+Comments: /* */ are used for CSS comments -->

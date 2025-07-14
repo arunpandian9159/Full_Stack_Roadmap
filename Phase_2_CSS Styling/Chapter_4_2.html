@@ -2,43 +2,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>CSS Grid</title>
+    <title>Responsive Design</title>
     <style>
-        .grid-container {
-            display: grid;
-            grid-template-columns: 1fr 2fr 1fr;
-            grid-template-rows: 100px 200px 100px;
-            gap: 10px;
-            height: 400px;
-        }
-        
-        .grid-item {
-            background-color: lightblue;
+        .responsive-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
             padding: 20px;
-            border: 1px solid #333;
         }
-        
-        .header {
-            grid-column: 1 / -1;
-            background-color: lightgreen;
+        .responsive-item{
+            flex: 1 0 0px; /* Flex-grow, flex-shrink, flex-basis */
+            background-color: lightblue;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 24px;
         }
-        
-        .sidebar {
-            grid-row: 2 / 4;
-            background-color: lightcoral;
+        @media (max-width: 768px) {
+            .responsive-item {
+                min-width: 100%; /* Full width on small screens */
+                background-color: lightgreen;
+            }
         }
+        @media (min-width: 480px) {
+            .responsive-item {
+                padding: 10px;;
+            }
+        }
+           .responsive-item {
+                padding: 10px;
+                background-color: lightcoral;
+            }
+
     </style>
 </head>
 <body>
-    <div class="grid-container">
-        <div class="grid-item header">Header</div>
-        <div class="grid-item sidebar">Sidebar</div>
-        <div class="grid-item">Main Content</div>
-        <div class="grid-item">Content 2</div>
-        <div class="grid-item">Footer</div>
+    <div class="responsive-container">
+        <div class="responsive-item">Item 1</div>
+        <div class="responsive-item">Item 2</div>
+        <div class="responsive-item">Item 3</div>
     </div>
 </body>
 </html>
+
 <!--Code Explanation:
 
 CSS Grid: Creates two-dimensional layouts with rows and columns

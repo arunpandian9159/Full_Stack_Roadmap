@@ -1,0 +1,70 @@
+
+<!--Variables, Data Types, and Operators
+Basic JavaScript Concepts-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Basics</title>
+</head>
+<body>
+    <h1>JavaScript Fundamentals</h1>
+    <p id="output"></p>
+    
+    <script>
+        // Variables and Data Types
+        let name = "John Doe";           // String
+        let age = 30;                    // Number
+        let isStudent = true;            // Boolean
+        let hobbies = ["reading", "coding", "gaming"];  // Array
+        let person = {                   // Object
+            firstName: "John",
+            lastName: "Doe",
+            age: 30
+        };
+        
+        // Basic Operators
+        let x = 10;
+        let y = 5;
+        
+        let sum = x + y;        // Addition: 15
+        let difference = x - y;  // Subtraction: 5
+        let product = x * y;     // Multiplication: 50
+        let quotient = x / y;    // Division: 2
+        let remainder = x % y;   // Modulus: 0
+        
+        // Comparison Operators
+        let isEqual = (x == y);      // false
+        let isStrictEqual = (x === y); // false
+        let isGreater = (x > y);     // true
+        let isLessOrEqual = (x <= y); // false
+        
+        // Logical Operators
+        let andResult = (x > 5) && (y < 10);  // true
+        let orResult = (x < 5) || (y > 10);   // false
+        let notResult = !(x > 5);             // false
+        
+        // Display results
+        document.getElementById("output").innerHTML = 
+            `Name: ${person.firstName} ${person.lastName}<br>
+             Age: ${age}<br>
+             Is Student: ${isStudent}<br>
+             Hobbies: ${hobbies.join(", ")}<br>
+             Sum: ${sum}<br>
+             Is Greater: ${isGreater}<br>
+             First Hobby: ${hobbies[1]}`;
+    </script>
+</body>
+</html>
+<!--Code Explanation:
+
+Variables: let creates block-scoped variables
+
+Data Types: Strings, numbers, booleans, arrays, and objects
+
+Operators: Arithmetic, comparison, and logical operators for calculations
+
+Template literals: ${} syntax for embedding expressions in strings
+
+Array access: Use square brackets with index to access array elements
+
+Object properties: Access using dot notation or bracket notation -->

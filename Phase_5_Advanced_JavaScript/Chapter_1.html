@@ -1,0 +1,213 @@
+<!--Advanced Object-Oriented Programming
+Prototypes and Inheritance-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Advanced OOP</title>
+</head>
+<body>
+    <h1>Advanced Object-Oriented Programming</h1>
+    <button onclick="demonstratePrototypes()">Prototype Examples</button>
+    <button onclick="demonstrateInheritance()">Inheritance Examples</button>
+    <button onclick="demonstrateEncapsulation()">Encapsulation Examples</button>
+    <div id="output"></div>
+    
+    <script>
+        function demonstratePrototypes() {
+            let output = "<h3>Prototype Examples</h3>";
+            
+            // Constructor function
+            function Person(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+            
+            // Adding methods to prototype
+            Person.prototype.greet = function() {
+                return `Hello, I'm ${this.name}`;
+            };
+            
+            Person.prototype.getAge = function() {
+                return this.age;
+            };
+            
+            // Create instances
+            let person1 = new Person("Alice", 30);
+            let person2 = new Person("Bob", 25);
+            
+            output += `${person1.greet()}<br>`;
+            output += `${person2.greet()}<br>`;
+            
+            // Prototype chain
+            output += `person1.constructor === Person: ${person1.constructor === Person}<br>`;
+            output += `Person.prototype.isPrototypeOf(person1): ${Person.prototype.isPrototypeOf(person1)}<br>`;
+            
+            // Adding methods to built-in prototypes
+            Array.prototype.sum = function() {
+                return this.reduce((total, num) => total + num, 0);
+            };
+            
+            let numbers = [1, 2, 3, 4, 5];
+            output += `Array sum: ${numbers.sum()}<br>`;
+            
+            document.getElementById("output").innerHTML = output;
+        }
+        
+        function demonstrateInheritance() {
+            let output = "<h3>Inheritance Examples</h3>";
+            
+            // Base class
+            class Vehicle {
+                constructor(brand, model) {
+                    this.brand = brand;
+                    this.model = model;
+                }
+                
+                start() {
+                    return `${this.brand} ${this.model} is starting`;
+                }
+                
+                stop() {
+                    return `${this.brand} ${this.model} is stopping`;
+                }
+            }
+            
+            // Derived class
+            class Car extends Vehicle {
+                constructor(brand, model, doors) {
+                    super(brand, model);
+                    this.doors = doors;
+                }
+                
+                honk() {
+                    return `${this.brand} ${this.model} is honking`;
+                }
+                
+                // Method overriding
+                start() {
+                    return `Car ${super.start()} with ${this.doors} doors`;
+                }
+            }
+            
+            // Another derived class
+            class Motorcycle extends Vehicle {
+                constructor(brand, model, engineSize) {
+                    super(brand, model);
+                    this.engineSize = engineSize;
+                }
+                
+                wheelie() {
+                    return `${this.brand} ${this.model} is doing a wheelie`;
+                }
+                
+                start() {
+                    return `Motorcycle ${super.start()} with ${this.engineSize}cc engine`;
+                }
+            }
+            
+            let car = new Car("Toyota", "Camry", 4);
+            let motorcycle = new Motorcycle("Honda", "CBR", 600);
+            
+            output += `${car.start()}<br>`;
+            output += `${car.honk()}<br>`;
+            output += `${motorcycle.start()}<br>`;
+            output += `${motorcycle.wheelie()}<br>`;
+            
+            // Polymorphism
+            let vehicles = [car, motorcycle];
+            output += "<strong>Polymorphism:</strong><br>";
+            vehicles.forEach(vehicle => {
+                output += `${vehicle.start()}<br>`;
+            });
+            
+            document.getElementById("output").innerHTML = output;
+        }
+        
+        function demonstrateEncapsulation() {
+            let output = "<h3>Encapsulation Examples</h3>";
+            
+            // Private variables with closures
+            function BankAccount(initialBalance) {
+                let balance = initialBalance;
+                
+                return {
+                    deposit: function(amount) {
+                        if (amount > 0) {
+                            balance += amount;
+                            return `Deposited $${amount}. New balance: $${balance}`;
+                        }
+                        return "Invalid deposit amount";
+                    },
+                    
+                    withdraw: function(amount) {
+                        if (amount > 0 && amount <= balance) {
+                            balance -= amount;
+                            return `Withdrew $${amount}. New balance: $${balance}`;
+                        }
+                        return "Invalid withdrawal amount or insufficient funds";
+                    },
+                    
+                    getBalance: function() {
+                        return balance;
+                    }
+                };
+            }
+            
+            let account = BankAccount(1000);
+            output += `${account.deposit(500)}<br>`;
+            output += `${account.withdraw(200)}<br>`;
+            output += `Current balance: $${account.getBalance()}<br>`;
+            
+            // Private fields with classes (ES2022)
+            class ModernBankAccount {
+                #balance;
+                
+                constructor(initialBalance) {
+                    this.#balance = initialBalance;
+                }
+                
+                deposit(amount) {
+                    if (amount > 0) {
+                        this.#balance += amount;
+                        return `Deposited $${amount}. New balance: $${this.#balance}`;
+                    }
+                    return "Invalid deposit amount";
+                }
+                
+                withdraw(amount) {
+                    if (amount > 0 && amount <= this.#balance) {
+                        this.#balance -= amount;
+                        return `Withdrew $${amount}. New balance: $${this.#balance}`;
+                    }
+                    return "Invalid withdrawal amount or insufficient funds";
+                }
+                
+                get balance() {
+                    return this.#balance;
+                }
+            }
+            
+            let modernAccount = new ModernBankAccount(2000);
+            output += `${modernAccount.deposit(300)}<br>`;
+            output += `Modern account balance: $${modernAccount.balance}<br>`;
+            
+            document.getElementById("output").innerHTML = output;
+        }
+    </script>
+</body>
+</html>
+<!--Code Explanation:
+
+Prototype chain: Objects inherit from other objects through prototypes
+
+Constructor functions: Functions that create objects with shared methods
+
+Class inheritance: extends keyword creates subclasses
+
+Method overriding: Subclasses can redefine parent methods
+
+super keyword: Calls parent class methods and constructors
+
+Encapsulation: Private variables and methods hide implementation details
+
+Polymorphism: Objects of different types respond to the same interface -->

@@ -1,6 +1,6 @@
 # Full Stack Development Roadmap
 
-A comprehensive learning path for full-stack web development, covering HTML, CSS, and JavaScript fundamentals with practical examples and exercises.
+A comprehensive learning path for full-stack web development, covering HTML, CSS, JavaScript fundamentals, intermediate concepts, and advanced programming techniques with practical examples and exercises.
 
 ## 📚 Course Structure
 
@@ -97,17 +97,54 @@ Add interactivity and dynamic behavior to your web applications.
   - Destructuring and modern syntax
 
 ### Phase 4: Intermediate JavaScript
-*Coming Soon - Advanced JavaScript concepts and DOM manipulation*
+Dive deeper into JavaScript with DOM manipulation, asynchronous programming, and modern ES6+ features.
 
-### Phase 5: Backend Development
-*Coming Soon - Server-side development and databases*
+- **[Chapter 1: DOM Manipulation and Events](Phase_4_Intermediate_Javascript/Chapter_1.html)**
+  - Selecting and modifying DOM elements
+  - Creating and removing elements dynamically
+  - Event handling and user interactions
+  - Element styling and class manipulation
+
+- **[Chapter 2: Asynchronous JavaScript and Promises](Phase_4_Intermediate_Javascript/Chapter_2.html)**
+  - Understanding callbacks and callback hell
+  - Working with Promises and Promise chains
+  - Async/await syntax and error handling
+  - Fetch API and HTTP requests
+
+- **[Chapter 3: ES6+ Features and Modern JavaScript](Phase_4_Intermediate_Javascript/Chapter_3.html)**
+  - Template literals and string interpolation
+  - Destructuring assignments and spread operator
+  - Arrow functions and default parameters
+  - Classes, inheritance, and modern syntax
+
+### Phase 5: Advanced JavaScript
+Master advanced JavaScript concepts including OOP, performance optimization, and cutting-edge features.
+
+- **[Chapter 1: Advanced Object-Oriented Programming](Phase_5_Advanced_JavaScript/Chapter_1.html)**
+  - Prototypes and prototype chain
+  - Constructor functions and inheritance
+  - Encapsulation and private properties
+  - Advanced class patterns and mixins
+
+- **[Chapter 2: Advanced Asynchronous Patterns](Phase_5_Advanced_JavaScript/Chapter_2.html)**
+  - Promise.all, Promise.race, and Promise.allSettled
+  - Async iterators and generators
+  - Complex error handling patterns
+  - Concurrent programming techniques
+
+- **[Chapter 3: Modern JavaScript Features and Performance](Phase_5_Advanced_JavaScript/Chapter_3.html)**
+  - Proxy objects and meta-programming
+  - WeakMap and WeakSet for memory management
+  - Symbols and advanced object properties
+  - Performance optimization and debugging techniques
 
 ## 🚀 Getting Started
 
 1. **Prerequisites**: Basic computer literacy and a text editor or IDE
 2. **Recommended Approach**: Follow the phases in order for a structured learning experience
-3. **Practice**: Each chapter includes practical examples and exercises
-4. **Browser**: Use a modern web browser for testing and development
+3. **Practice**: Each chapter includes practical examples and interactive exercises
+4. **Browser**: Use a modern web browser (Chrome, Firefox, Safari, Edge) for testing and development
+5. **Progressive Learning**: Start with HTML foundations and gradually advance to complex JavaScript concepts
 
 ## 📖 How to Use This Repository
 
@@ -124,11 +161,13 @@ Add interactivity and dynamic behavior to your web applications.
 
 ## 📝 Learning Tips
 
-- **Practice Regularly**: Code along with the examples
+- **Practice Regularly**: Code along with the examples and try the interactive demonstrations
 - **Experiment**: Modify the code to see how changes affect the output
 - **Build Projects**: Apply what you learn to create your own projects
 - **Debug**: Use browser developer tools to understand how code works
 - **Review**: Revisit previous chapters to reinforce concepts
+- **Progressive Complexity**: Master each phase before moving to the next for optimal learning
+- **Hands-On Learning**: Click the buttons in each chapter to see live demonstrations
 
 ## 🤝 Contributing
 

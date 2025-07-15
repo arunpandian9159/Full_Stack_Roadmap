@@ -1,0 +1,143 @@
+<!--ES6+ Features and Modern JavaScript
+Modern JavaScript Features-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Modern JavaScript Features</title>
+</head>
+<body>
+    <h1>ES6+ Features</h1>
+    <button onclick="demonstrateFeatures()">Demonstrate Features</button>
+    <div id="output"></div>
+    
+    <script>
+        function demonstrateFeatures() {
+            let output = "";
+            
+            // Template Literals
+            let name = "John";
+            let age = 30;
+            output += `<h3>Template Literals</h3>`;
+            output += `Hello, my name is ${name} and I am ${age} years old.<br>`;
+            
+            // Destructuring
+            output += `<h3>Destructuring</h3>`;
+            let person = { firstName: "Jane", lastName: "Doe", age: 25 };
+            let { firstName, lastName } = person;
+            output += `Name: ${firstName} ${lastName}<br>`;
+            
+            let numbers = [1, 2, 3, 4, 5];
+            let [first, second, ...rest] = numbers;
+            output += `First: ${first}, Second: ${second}, Rest: ${rest.join(", ")}<br>`;
+            
+            // Spread Operator
+            output += `<h3>Spread Operator</h3>`;
+            let arr1 = [1, 2, 3];
+            let arr2 = [4, 5, 6];
+            let combined = [...arr1, ...arr2];
+            output += `Combined array: ${combined.join(", ")}<br>`;
+            
+            // Object spread
+            let person1 = { name: "Alice", age: 30 };
+            let person2 = { ...person1, city: "New York" };
+            output += `Extended person: ${JSON.stringify(person2)}<br>`;
+            
+            // Arrow Functions
+            output += `<h3>Arrow Functions</h3>`;
+            let multiply = (a, b) => a * b;
+            let square = x => x * x;
+            output += `Multiply: ${multiply(5, 3)}<br>`;
+            output += `Square: ${square(4)}<br>`;
+            
+            // Default Parameters
+            output += `<h3>Default Parameters</h3>`;
+            function greet(name = "World") {
+                return `Hello, ${name}!`;
+            }
+            output += `${greet()}<br>`;
+            output += `${greet("JavaScript")}<br>`;
+            
+            // Classes
+            output += `<h3>Classes</h3>`;
+            class Animal {
+                constructor(name, species) {
+                    this.name = name;
+                    this.species = species;
+                }
+                
+                speak() {
+                    return `${this.name} makes a sound`;
+                }
+            }
+            
+            class Dog extends Animal {
+                constructor(name, breed) {
+                    super(name, "Canine");
+                    this.breed = breed;
+                }
+                
+                speak() {
+                    return `${this.name} barks`;
+                }
+            }
+            
+            let dog = new Dog("Buddy", "Golden Retriever");
+            output += `${dog.speak()}<br>`;
+            output += `Breed: ${dog.breed}<br>`;
+            
+            // Map and Set
+            output += `<h3>Map and Set</h3>`;
+            let map = new Map();
+            map.set("key1", "value1");
+            map.set("key2", "value2");
+            output += `Map size: ${map.size}<br>`;
+            output += `Map has key1: ${map.has("key1")}<br>`;
+            
+            let set = new Set([1, 2, 3, 3, 4]);
+            output += `Set values: ${Array.from(set).join(", ")}<br>`;
+            
+            // Modules (simulated)
+            output += `<h3>Module Pattern</h3>`;
+            const MathUtils = (function() {
+                const PI = 3.14159;
+                
+                function add(a, b) {
+                    return a + b;
+                }
+                
+                function multiply(a, b) {
+                    return a * b;
+                }
+                
+                return {
+                    add: add,
+                    multiply: multiply,
+                    PI: PI
+                };
+            })();
+            
+            output += `Math.add(5, 3): ${MathUtils.add(5, 3)}<br>`;
+            output += `Math.PI: ${MathUtils.PI}<br>`;
+            
+            document.getElementById("output").innerHTML = output;
+        }
+    </script>
+</body>
+</html>
+<!--Code Explanation:
+
+Template literals: Use backticks for string interpolation with ${}
+
+Destructuring: Extract values from arrays and objects into variables
+
+Spread operator: ... spreads array/object elements
+
+Arrow functions: Concise syntax for functions with lexical this
+
+Classes: class keyword for object-oriented programming
+
+Inheritance: extends keyword for class inheritance
+
+Map and Set: New data structures for key-value pairs and unique values
+
+Modules: Code organization pattern for encapsulation -->

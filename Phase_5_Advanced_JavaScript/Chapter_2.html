@@ -1,0 +1,196 @@
+<!--Advanced Asynchronous Patterns
+Complex Async Operations -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Advanced Async Patterns</title>
+</head>
+<body>
+    <h1>Advanced Asynchronous Patterns</h1>
+    <button onclick="promiseAllExample()">Promise.all Example</button>
+    <button onclick="promiseRaceExample()">Promise.race Example</button>
+    <button onclick="asyncIteratorExample()">Async Iterator Example</button>
+    <button onclick="errorHandlingExample()">Error Handling Example</button>
+    <div id="output"></div>
+    
+    <script>
+        // Utility function for simulating async operations
+        function delay(ms, value) {
+            return new Promise(resolve => setTimeout(() => resolve(value), ms));
+        }
+        
+        function randomDelay(min, max, value) {
+            let ms = Math.random() * (max - min) + min;
+            return delay(ms, value);
+        }
+        
+        async function promiseAllExample() {
+            updateOutput("<h3>Promise.all Example</h3>");
+            updateOutput("Starting parallel operations...");
+            
+            try {
+                let promises = [
+                    randomDelay(1000, 2000, "Task 1 completed"),
+                    randomDelay(500, 1500, "Task 2 completed"),
+                    randomDelay(800, 1200, "Task 3 completed")
+                ];
+                
+                let startTime = Date.now();
+                let results = await Promise.all(promises);
+                let endTime = Date.now();
+                
+                updateOutput(`All tasks completed in ${endTime - startTime}ms:`);
+                results.forEach((result, index) => {
+                    updateOutput(`${index + 1}. ${result}`);
+                });
+            } catch (error) {
+                updateOutput(`Error: ${error.message}`);
+            }
+        }
+        
+        async function promiseRaceExample() {
+            updateOutput("<h3>Promise.race Example</h3>");
+            updateOutput("Racing operations...");
+            
+            try {
+                let promises = [
+                    randomDelay(1000, 3000, "Slow operation finished"),
+                    randomDelay(500, 2000, "Medium operation finished"),
+                    randomDelay(200, 1000, "Fast operation finished")
+                ];
+                
+                let startTime = Date.now();
+                let winner = await Promise.race(promises);
+                let endTime = Date.now();
+                
+                updateOutput(`Winner: ${winner} (${endTime - startTime}ms)`);
+            } catch (error) {
+                updateOutput(`Error: ${error.message}`);
+            }
+        }
+        
+        async function asyncIteratorExample() {
+            updateOutput("<h3>Async Iterator Example</h3>");
+            
+            // Async generator function
+            async function* asyncGenerator() {
+                for (let i = 1; i <= 5; i++) {
+                    await delay(500, null);
+                    yield `Item ${i}`;
+                }
+            }
+            
+            // Using async iterator
+            updateOutput("Processing items...");
+            for await (let item of asyncGenerator()) {
+                updateOutput(`Received: ${item}`);
+            }
+            
+            updateOutput("All items processed!");
+        }
+        
+        async function errorHandlingExample() {
+            updateOutput("<h3>Error Handling Example</h3>");
+            
+            // Function that might fail
+            function unreliableOperation(shouldFail = false) {
+                return new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        if (shouldFail) {
+                            reject(new Error("Operation failed"));
+                        } else {
+                            resolve("Operation succeeded");
+                        }
+                    }, 1000);
+                });
+            }
+            
+            // Retry mechanism
+            async function retryOperation(operation, maxRetries = 3) {
+                for (let attempt = 1; attempt <= maxRetries; attempt++) {
+                    try {
+                        updateOutput(`Attempt ${attempt}...`);
+                        let result = await operation();
+                        updateOutput(`Success: ${result}`);
+                        return result;
+                    } catch (error) {
+                        updateOutput(`Attempt ${attempt} failed: ${error.message}`);
+                        if (attempt === maxRetries) {
+                            throw error;
+                        }
+                        await delay(1000, null); // Wait before retry
+                    }
+                }
+            }
+            
+            // Test with failing operation
+            try {
+                await retryOperation(() => unreliableOperation(Math.random() > 0.3));
+            } catch (error) {
+                updateOutput(`Final error: ${error.message}`);
+            }
+        }
+        
+        // Advanced async patterns
+        class AsyncQueue {
+            constructor(concurrency = 1) {
+                this.concurrency = concurrency;
+                this.running = 0;
+                this.queue = [];
+            }
+            
+            async add(asyncFunction) {
+                return new Promise((resolve, reject) => {
+                    this.queue.push({
+                        asyncFunction,
+                        resolve,
+                        reject
+                    });
+                    this.tryNext();
+                });
+            }
+            
+            async tryNext() {
+                if (this.running >= this.concurrency || this.queue.length === 0) {
+                    return;
+                }
+                
+                this.running++;
+                let { asyncFunction, resolve, reject } = this.queue.shift();
+                
+                try {
+                    let result = await asyncFunction();
+                    resolve(result);
+                } catch (error) {
+                    reject(error);
+                } finally {
+                    this.running--;
+                    this.tryNext();
+                }
+            }
+        }
+        
+        // Utility function
+        function updateOutput(message) {
+            let output = document.getElementById("output");
+            output.innerHTML += "<p>" + message + "</p>";
+        }
+    </script>
+</body>
+</html>
+
+<!--Code Explanation:
+
+Promise.all: Waits for all promises to resolve or any to reject
+
+Promise.race: Resolves with the first promise that settles
+
+Async generators: Functions that yield values asynchronously
+
+for await...of: Iterates over async iterables
+
+Error handling: Try/catch blocks with retry mechanisms
+
+Async queue: Controls concurrency of async operations
+
+Advanced patterns: Custom async utilities for complex scenarios -->

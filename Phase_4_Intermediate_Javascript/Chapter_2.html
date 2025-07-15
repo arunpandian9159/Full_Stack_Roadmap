@@ -1,0 +1,132 @@
+<!--Asynchronous JavaScript and Promises
+Understanding Async Operations-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Asynchronous JavaScript</title>
+</head>
+<body>
+    <h1>Asynchronous JavaScript Examples</h1>
+    <button onclick="callbackExample()">Callback Example</button>
+    <button onclick="promiseExample()">Promise Example</button>
+    <button onclick="asyncAwaitExample()">Async/Await Example</button>
+    <button onclick="fetchDataExample()">Fetch Data</button>
+    
+    <div id="results"></div>
+    
+    <script>
+        // Callback example
+        function callbackExample() {
+            updateResults("Starting callback example...");
+            
+            setTimeout(function() {
+                updateResults("Callback executed after 2 seconds!");
+            }, 2000);
+        }
+        
+        // Promise example
+        function promiseExample() {
+            updateResults("Starting promise example...");
+            
+            let myPromise = new Promise(function(resolve, reject) {
+                setTimeout(function() {
+                    let success = Math.random() > 0.5;
+                    if (success) {
+                        resolve("Promise resolved successfully!");
+                    } else {
+                        reject("Promise rejected!");
+                    }
+                }, 1500);
+            });
+            
+            myPromise
+                .then(function(result) {
+                    updateResults(result);
+                })
+                .catch(function(error) {
+                    updateResults("Error: " + error);
+                });
+        }
+        
+        // Async/Await example
+        async function asyncAwaitExample() {
+            updateResults("Starting async/await example...");
+            
+            try {
+                let result = await delayedOperation("Async/await completed!");
+                updateResults(result);
+            } catch (error) {
+                updateResults("Error: " + error);
+            }
+        }
+        
+        // Helper function that returns a promise
+        function delayedOperation(message) {
+            return new Promise(function(resolve) {
+                setTimeout(function() {
+                    resolve(message);
+                }, 1000);
+            });
+        }
+        
+        // Fetch API example
+        async function fetchDataExample() {
+            updateResults("Fetching data...");
+            
+            try {
+                // Simulating API call with JSONPlaceholder
+                let response = await fetch('https://jsonplaceholder.typicode.com/posts/1');
+                let data = await response.json();
+                
+                updateResults(`
+                    <strong>Fetched Data:</strong><br>
+                    Title: ${data.title}<br>
+                    Body: ${data.body.substring(0, 100)}...
+                `);
+            } catch (error) {
+                updateResults("Error fetching data: " + error.message);
+            }
+        }
+        
+        // Promise chaining example
+        function promiseChaining() {
+            updateResults("Starting promise chain...");
+            
+            fetch('https://jsonplaceholder.typicode.com/users/1')
+                .then(response => response.json())
+                .then(user => {
+                    updateResults("User: " + user.name);
+                    return fetch(`https://jsonplaceholder.typicode.com/users/${user.id}/posts`);
+                })
+                .then(response => response.json())
+                .then(posts => {
+                    updateResults("User has " + posts.length + " posts");
+                })
+                .catch(error => {
+                    updateResults("Error: " + error.message);
+                });
+        }
+        
+        // Utility function
+        function updateResults(message) {
+            let results = document.getElementById("results");
+            results.innerHTML += "<p>" + message + "</p>";
+        }
+    </script>
+</body>
+</html>
+<!--Code Explanation:
+
+Callbacks: Functions passed as arguments to be executed later
+
+Promises: Objects representing eventual completion of async operations
+
+Promise states: Pending, fulfilled, or rejected
+
+async/await: Syntax for writing asynchronous code that looks synchronous
+
+Fetch API: Modern way to make HTTP requests
+
+Error handling: try/catch blocks for handling async errors
+
+Promise chaining: Link multiple asynchronous operations together -->

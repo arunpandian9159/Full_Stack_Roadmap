@@ -1,0 +1,112 @@
+<!--DOM Manipulation and Events
+Interacting with the DOM-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DOM Manipulation</title>
+    <style>
+        .highlight { background-color: yellow; }
+        .box { 
+            width: 100px; 
+            height: 100px; 
+            background-color: lightblue; 
+            margin: 10px; 
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="main-title">DOM Manipulation Examples</h1>
+    
+    <div id="content">
+        <p class="paragraph">This is paragraph 1</p>
+        <p class="paragraph">This is paragraph 2</p>
+    </div>
+    
+    <button onclick="changeTitle()">Change Title</button>
+    <button onclick="addParagraph()">Add Paragraph</button>
+    <button onclick="highlightParagraphs()">Highlight Paragraphs</button>
+    <button onclick="createBoxes()">Create Boxes</button>
+    
+    <div id="box-container"></div>
+    
+    <script>
+        // Selecting elements
+        function changeTitle() {
+            let title = document.getElementById("main-title");
+            title.textContent = "Title Changed!";
+            title.style.color = "red";
+        }
+        
+        // Creating and adding elements
+        function addParagraph() {
+            let newParagraph = document.createElement("p");
+            newParagraph.textContent = "This is a new paragraph!";
+            newParagraph.className = "paragraph";
+            
+            let content = document.getElementById("content");
+            content.appendChild(newParagraph);
+        }
+        
+        // Modifying multiple elements
+        function highlightParagraphs() {
+            let paragraphs = document.querySelectorAll(".paragraph");
+            paragraphs.forEach(function(paragraph) {
+                paragraph.classList.toggle("highlight");
+            });
+        }
+        
+        // Creating interactive elements
+        function createBoxes() {
+            let container = document.getElementById("box-container");
+            container.innerHTML = ""; // Clear existing boxes
+            
+            for (let i = 1; i <= 5; i++) {
+                let box = document.createElement("div");
+                box.className = "box";
+                box.textContent = i;
+                
+                // Add event listener
+                box.addEventListener("click", function() {
+                    this.style.backgroundColor = getRandomColor();
+                });
+                
+                container.appendChild(box);
+            }
+        }
+        
+        // Event handling
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log("Page loaded!");
+            
+            // Add event listeners
+            document.getElementById("main-title").addEventListener("mouseover", function() {
+                this.style.fontSize = "2em";
+            });
+            
+            document.getElementById("main-title").addEventListener("mouseout", function() {
+                this.style.fontSize = "1.5em";
+            });
+        });
+        
+        // Utility function
+        function getRandomColor() {
+            let colors = ["red", "blue", "green", "orange", "purple", "pink"];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+    </script>
+</body>
+</html>
+<!-- Code Explanation:
+
+Element selection: getElementById(), querySelectorAll() find DOM elements
+
+Element creation: createElement() creates new HTML elements
+
+Element modification: Change textContent, style, and className
+
+Event listeners: addEventListener() responds to user interactions
+
+DOM manipulation: Add, remove, and modify elements dynamically
+
+Event delegation: Handle events efficiently on multiple elements -->

@@ -1,0 +1,255 @@
+<!--Modern JavaScript Features and Performance
+Cutting-Edge JavaScript-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Modern JavaScript Features</title>
+</head>
+<body>
+    <h1>Modern JavaScript Features</h1>
+    <button onclick="demonstrateProxies()">Proxy Example</button>
+    <button onclick="demonstrateWeakMap()">WeakMap/WeakSet Example</button>
+    <button onclick="demonstrateSymbols()">Symbol Example</button>
+    <button onclick="performanceExample()">Performance Example</button>
+    <div id="output"></div>
+    
+    <script>
+        function demonstrateProxies() {
+            updateOutput("<h3>Proxy Examples</h3>");
+            
+            // Basic proxy
+            let target = {
+                name: "John",
+                age: 30
+            };
+            
+            let handler = {
+                get(target, property) {
+                    updateOutput(`Getting property: ${property}`);
+                    return target[property];
+                },
+                
+                set(target, property, value) {
+                    updateOutput(`Setting property: ${property} = ${value}`);
+                    if (property === 'age' && value < 0) {
+                        throw new Error("Age cannot be negative");
+                    }
+                    target[property] = value;
+                    return true;
+                }
+            };
+            
+            let proxy = new Proxy(target, handler);
+            
+            updateOutput(`Name: ${proxy.name}`);
+            proxy.age = 31;
+            updateOutput(`New age: ${proxy.age}`);
+            
+            // Validation proxy
+            class ValidatedUser {
+                constructor() {
+                    return new Proxy(this, {
+                        set(target, property, value) {
+                            if (property === 'email' && !value.includes('@')) {
+                                throw new Error("Invalid email format");
+                            }
+                            if (property === 'age' && (value < 0 || value > 150)) {
+                                throw new Error("Invalid age");
+                            }
+                            target[property] = value;
+                            return true;
+                        }
+                    });
+                }
+            }
+            
+            let user = new ValidatedUser();
+            user.email = "test@example.com";
+            user.age = 25;
+            updateOutput(`Valid user created: ${user.email}, ${user.age}`);
+        }
+        
+        function demonstrateWeakMap() {
+            updateOutput("<h3>WeakMap and WeakSet Examples</h3>");
+            
+            // WeakMap for private data
+            let privateData = new WeakMap();
+            
+            class SecureClass {
+                constructor(secret) {
+                    privateData.set(this, { secret });
+                }
+                
+                getSecret() {
+                    return privateData.get(this).secret;
+                }
+                
+                setSecret(newSecret) {
+                    privateData.get(this).secret = newSecret;
+                }
+            }
+            
+            let obj = new SecureClass("my secret");
+            updateOutput(`Secret: ${obj.getSecret()}`);
+            obj.setSecret("new secret");
+            updateOutput(`New secret: ${obj.getSecret()}`);
+            
+            // WeakSet for object tracking
+            let visited = new WeakSet();
+            
+            function processObject(obj) {
+                if (visited.has(obj)) {
+                    return "Already processed";
+                }
+                visited.add(obj);
+                return "Processing for first time";
+            }
+            
+            let testObj = { id: 1 };
+            updateOutput(processObject(testObj));
+            updateOutput(processObject(testObj));
+        }
+        
+        function demonstrateSymbols() {
+            updateOutput("<h3>Symbol Examples</h3>");
+            
+            // Unique symbols
+            let sym1 = Symbol('description');
+            let sym2 = Symbol('description');
+            updateOutput(`Symbols equal: ${sym1 === sym2}`); // false
+            
+            // Symbols as object keys
+            let obj = {};
+            let hiddenProperty = Symbol('hidden');
+            obj[hiddenProperty] = "secret value";
+            obj.normalProperty = "normal value";
+            
+            updateOutput(`Normal property: ${obj.normalProperty}`);
+            updateOutput(`Hidden property: ${obj[hiddenProperty]}`);
+            
+            // Symbols don't appear in normal iteration
+            updateOutput("Object keys:", Object.keys(obj));
+            updateOutput("Symbol keys:", Object.getOwnPropertySymbols(obj));
+            
+            // Well-known symbols
+            class CustomIterable {
+                constructor(items) {
+                    this.items = items;
+                }
+                
+                [Symbol.iterator]() {
+                    let index = 0;
+                    let items = this.items;
+                    
+                    return {
+                        next() {
+                            if (index < items.length) {
+                                return { value: items[index++], done: false };
+                            }
+                            return { done: true };
+                        }
+                    };
+                }
+            }
+            
+            let customIterable = new CustomIterable([1, 2, 3]);
+            updateOutput("Custom iterable:");
+            for (let item of customIterable) {
+                updateOutput(`Item: ${item}`);
+            }
+        }
+        
+        function performanceExample() {
+            updateOutput("<h3>Performance Examples</h3>");
+            
+            // Measuring performance
+            function measurePerformance(fn, name) {
+                let start = performance.now();
+                fn();
+                let end = performance.now();
+                updateOutput(`${name}: ${(end - start).toFixed(2)}ms`);
+            }
+            
+            // Array operations comparison
+            let largeArray = Array.from({ length: 1000000 }, (_, i) => i);
+            
+            measurePerformance(() => {
+                largeArray.map(x => x * 2);
+            }, "Array.map");
+            
+            measurePerformance(() => {
+                let result = [];
+                for (let i = 0; i < largeArray.length; i++) {
+                    result.push(largeArray[i] * 2);
+                }
+            }, "For loop");
+            
+            // Memory usage optimization
+            function memoryEfficientProcessor(data) {
+                // Process data in chunks to avoid memory issues
+                const chunkSize = 1000;
+                let processed = 0;
+                
+                for (let i = 0; i < data.length; i += chunkSize) {
+                    let chunk = data.slice(i, i + chunkSize);
+                    processed += chunk.reduce((sum, item) => sum + item, 0);
+                }
+                
+                return processed;
+            }
+            
+            measurePerformance(() => {
+                memoryEfficientProcessor(largeArray);
+            }, "Memory efficient processing");
+            
+            // Debouncing example
+            function debounce(func, wait) {
+                let timeout;
+                return function executedFunction(...args) {
+                    const later = () => {
+                        clearTimeout(timeout);
+                        func(...args);
+                    };
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                };
+            }
+            
+            let debouncedFunction = debounce(() => {
+                updateOutput("Debounced function executed");
+            }, 500);
+            
+            // Simulate rapid calls
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => debouncedFunction(), i * 100);
+            }
+        }
+        
+        // Utility function
+        function updateOutput(message, data = null) {
+            let output = document.getElementById("output");
+            if (data) {
+                output.innerHTML += `<p>${message} ${JSON.stringify(data)}</p>`;
+            } else {
+                output.innerHTML += `<p>${message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
+<!--Code Explanation:
+
+Proxies: Intercept and customize operations on objects
+
+WeakMap/WeakSet: Collections with weak references for memory efficiency
+
+Symbols: Unique identifiers for object properties
+
+Performance measurement: Using performance.now() for timing
+
+Memory optimization: Techniques for handling large datasets
+
+Debouncing: Limiting function execution frequency
+
+Advanced patterns: Modern JavaScript features for professional development
+-->

@@ -18,7 +18,6 @@ Complex Async Operations -->
         function delay(ms, value) {
             return new Promise(resolve => setTimeout(() => resolve(value), ms));
         }
-        
         function randomDelay(min, max, value) {
             let ms = Math.random() * (max - min) + min;
             return delay(ms, value);

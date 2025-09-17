@@ -11,8 +11,7 @@ Cutting-Edge JavaScript-->
     <button onclick="demonstrateWeakMap()">WeakMap/WeakSet Example</button>
     <button onclick="demonstrateSymbols()">Symbol Example</button>
     <button onclick="performanceExample()">Performance Example</button>
-    <div id="output"></div>
-    
+    <div id="output"></div> 
     <script>
         function demonstrateProxies() {
             updateOutput("<h3>Proxy Examples</h3>");
@@ -20,8 +19,7 @@ Cutting-Edge JavaScript-->
             let target = {
                 name: "John",
                 age: 30
-            };
-            
+            };            
             let handler = {
                 get(target, property) {
                     updateOutput(`Getting property: ${property}`);
@@ -36,8 +34,7 @@ Cutting-Edge JavaScript-->
                     target[property] = value;
                     return true;
                 }
-            };
-            
+            };           
             let proxy = new Proxy(target, handler);
             
             updateOutput(`Name: ${proxy.name}`);

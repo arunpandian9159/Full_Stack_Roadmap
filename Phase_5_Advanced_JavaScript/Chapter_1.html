@@ -39,17 +39,13 @@ Prototypes and Inheritance-->
             // Adding methods to built-in prototypes
             Array.prototype.sum = function() {
                 return this.reduce((total, num) => total + num, 0);
-            };
-            
+            };          
             let numbers = [1, 2, 3, 4, 5];
-            output += `Array sum: ${numbers.sum()}<br>`;
-            
+            output += `Array sum: ${numbers.sum()}<br>`;          
             document.getElementById("output").innerHTML = output;
-        }
-        
+        }       
         function demonstrateInheritance() {
-            let output = "<h3>Inheritance Examples</h3>";
-            
+            let output = "<h3>Inheritance Examples</h3>";          
             // Base class
             class Vehicle {
                 constructor(brand, model) {

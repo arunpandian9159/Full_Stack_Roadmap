@@ -25,7 +25,7 @@ Cutting-Edge JavaScript-->
                     updateOutput(`Getting property: ${property}`);
                     return target[property];
                 },
-        
+                
                 set(target, property, value) {
                     updateOutput(`Setting property: ${property} = ${value}`);
                     if (property === 'age' && value < 0) {

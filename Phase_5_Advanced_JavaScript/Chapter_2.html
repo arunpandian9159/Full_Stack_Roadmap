@@ -32,7 +32,7 @@ Complex Async Operations -->
                     randomDelay(500, 1500, "Task 2 completed"),
                     randomDelay(800, 1200, "Task 3 completed")
                 ];
-                
+            
                 let startTime = Date.now();
                 let results = await Promise.all(promises);
                 let endTime = Date.now();

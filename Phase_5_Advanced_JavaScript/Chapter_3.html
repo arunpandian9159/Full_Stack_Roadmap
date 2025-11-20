@@ -9,7 +9,7 @@ Cutting-Edge JavaScript-->
     <h1>Modern JavaScript Features</h1>
     <button onclick="demonstrateProxies()">Proxy Example</button>
     <button onclick="demonstrateWeakMap()">WeakMap/WeakSet Example</button>
-    <button onclick="demonstrateSymbols()">Symbol Example</button> 
+    <button onclick="demonstrateSymbols()">Symbol Example</button>            
     <button onclick="performanceExample()">Performance Example</button>
     <div id="output"></div> 
     <script>
@@ -22,7 +22,7 @@ Cutting-Edge JavaScript-->
             };            
             let handler = {
                 get(target, property) {
-                    updateOutput(`Getting property: ${property}`); 
+                    updateOutput(`Getting property: ${property}`);  
                     return target[property];
                 },
             
@@ -146,7 +146,7 @@ Cutting-Edge JavaScript-->
                         }
                     };
                 }
-            }
+            } 
             
             let customIterable = new CustomIterable([1, 2, 3]);
             updateOutput("Custom iterable:");
